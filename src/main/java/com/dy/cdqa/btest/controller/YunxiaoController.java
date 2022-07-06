@@ -3,6 +3,7 @@
  * Copyright (c) 2021-2022 All Rights Reserved.
  */
 package com.dy.cdqa.btest.controller;
+import com.alibaba.fastjson.JSONObject;
 import com.aliyun.devops20210625.models.ListSprintsResponseBody;
 import com.dy.cdqa.btest.common.ApiResult;
 import com.dy.cdqa.btest.entity.*;
@@ -104,6 +105,15 @@ public class YunxiaoController {
         //手动触发-更新公司下所有的项目和迭代信息
         bigDatabaseService.updateAllProAndSprints();
         return  ApiResult.success("已触发更新","success");
+    }
+
+    @RequestMapping(value = "/github",method =RequestMethod.GET)
+    public ApiResult github() throws Exception {
+        JSONObject  obj=new JSONObject();
+        obj.put("name","花荣");
+        obj.put("date","2022-07-06");
+        obj.put("dept","质量组");
+        return  ApiResult.success(obj,"success");
     }
 
 }
