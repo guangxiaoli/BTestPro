@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dy.cdqa.btest.mapper.DyBtestBigMapper">
+
+
+    <select id="getBugListBySprintId" resultType="com.dy.cdqa.btest.entity.BugDetailInfoBo">
+        SELECT id,bugid,sprintid,proid,assignedTo,type,bugstatus,chengdu,virtualDept,createday,checkToday FROM  bugdetailinfo  WHERE sprintid=#{sprintId}
+    </select>
+
+
+    <delete id="deleDataBySprintId" parameterType="java.lang.String">
+        DELETE FROM bugdetailinfo  WHERE sprintid=#{sprintId}
+    </delete>
+
+    <delete id="deleBigDataByProId" parameterType="java.lang.String">
+        DELETE FROM bugdetailinfo  WHERE proid=#{proId}
+    </delete>
+    <delete id="deleAirDataByProId" parameterType="java.lang.String">
+        DELETE FROM airbuglist  WHERE proid=#{proId}
+    </delete>
+
+    <insert id="addBugsData" parameterType="java.util.List">
+        INSERT INTO bugdetailinfo (bugid,sprintid,proid,assignedTo,type,bugstatus,chengdu,virtualDept,createday,checkToday)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.bugid},#{item.sprintid},#{item.proid},#{item.assignedTo},#{item.type},#{item.bugstatus},#{item.chengdu},#{item.virtualDept},#{item.createday},#{item.checkToday})
+        </foreach>
+    </insert>
+
+
+    <insert id="addProAndSprintInfo" parameterType="java.util.List">
+        INSERT INTO proinfo (proId,proName,sprintId,sprintName)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.proId},#{item.proName},#{item.sprintId},#{item.sprintName})
+        </foreach>
+    </insert>
+
+    <delete id="deleAllProInfo">
+        DELETE FROM proinfo
+    </delete>
+
+
+
+    <select id="proInfoList" resultType="com.dy.cdqa.btest.entity.ProjectInfoBo">
+        SELECT   DISTINCT(proid),proname   FROM  proinfo
+    </select>
+
+    <select id="sprintListByDBProId" resultType="com.dy.cdqa.btest.entity.ProjectInfoBo" parameterType="java.lang.String">
+        SELECT sprintid,sprintname  FROM  proinfo  WHERE proid=#{proId}
+    </select>
+
+    <insert id="addAutoTestResult" parameterType="com.dy.cdqa.btest.entity.AutoTestResultBo" keyProperty="id" useGeneratedKeys="true">
+        INSERT  INTO autotestresult(autoType,totalCount,succCount,failCount,checkUrl,createTime) VALUES(#{autoType},#{totalCount},#{succCount},#{failCount},#{checkUrl},#{createTime})
+    </insert>
+
+    <select id="bugsNumberGroupByKey"  resultType="com.dy.cdqa.btest.entity.KeyWordVauleBo">
+        SELECT   ${keyword} as keyWord, COUNT(id) as number  FROM bugdetailinfo WHERE sprintid=#{sprintid}  GROUP BY ${keyword};
+    </select>
+
+    <select id="allAssingInfo"  resultType="com.dy.cdqa.btest.entity.AssignInfoBo">
+        SELECT    id,assignName,accountId,dept,virtualDept  FROM assigninfo
+    </select>
+
+
+    <select id="allAutoTestRes"  resultType="com.dy.cdqa.btest.entity.AutoTestResultBo">
+        SELECT  id,autoType,totalCount,succCount,failCount,checkUrl,createTime FROM   autotestresult    ORDER BY id  desc
+    </select>
+
+
+    <insert id="addAirBugsInfo" parameterType="java.util.List">
+        INSERT INTO airbuglist (bugid,bugtitle,sprintid,sprintname,proid,proname,assignedto,creater,createtime,createday,bugtype,bugstatus,buglevel,bugdegree,bugcustomer,bugfindpath,bugreason,featurename,systemname,bugfindSprint,bugrepairtime,bugrepairsprint)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.bugid},#{item.bugtitle},#{item.sprintid},#{item.sprintname},#{item.proid},#{item.proname},#{item.assignedto},#{item.creater},#{item.createtime},#{item.createday},#{item.bugtype},#{item.bugstatus},#{item.buglevel},#{item.bugdegree},#{item.bugcustomer},#{item.bugfindpath},#{item.bugreason},#{item.featurename},#{item.systemname},#{item.bugfindSprint},#{item.bugrepairtime},#{item.bugrepairsprint})
+        </foreach>
+    </insert>
+
+    <delete id="deleTaskAndReq" parameterType="java.lang.String">
+        DELETE FROM  taskandreqlist  WHERE proid=#{proId}  and  categoryIdentifier=#{type}
+    </delete>
+
+
+    <insert id="insertTaskAndReq" parameterType="java.util.List">
+        INSERT INTO taskandreqlist (identifier,categoryIdentifier,subject,sprintid,sprintname,proid,proname,assignedto,itemstatus)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.identifier},#{item.categoryIdentifier},#{item.subject},#{item.sprintid},#{item.sprintname},#{item.proid},#{item.proname},#{item.assignedto},#{item.itemstatus})
+        </foreach>
+    </insert>
+
+
+</mapper>

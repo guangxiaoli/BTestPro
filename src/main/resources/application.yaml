@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    #  com.mysql.jdbc.Driver  com.mysql.cj.jdbc.Driver
+    driver-class-name:  com.mysql.jdbc.Driver
+    username: root
+
+    password: Aloudata@123
+    url: jdbc:mysql://10.5.100.2:3306/zarabtestinfo?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+
+    #password: 123456
+    #url: jdbc:mysql://localhost:3306/dytest_big?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+
+
+
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mappers/*.xml
+
+
+
+
