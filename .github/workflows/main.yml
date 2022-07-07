@@ -27,7 +27,7 @@ jobs:
         with:
          java-version: '11'
          distribution: 'adopt'
-      - run: mvn --batch-mode --update-snapshots verify
+      - run: mvn install -Dpolaris=true
       - run:  mkdir huarong && cp target/*.jar huarong
      
      
