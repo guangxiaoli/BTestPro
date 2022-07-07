@@ -5,8 +5,6 @@
 package com.dy.cdqa.btest.other;
 
 import com.alibaba.fastjson.JSON;
-import com.aliyun.devops20210625.models.*;
-import com.aliyun.teaopenapi.models.Config;
 import com.dy.cdqa.btest.entity.AutoTestResultBo;
 
 import java.util.List;
