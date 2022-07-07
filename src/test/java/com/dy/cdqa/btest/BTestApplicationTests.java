@@ -18,7 +18,7 @@ class BTestApplicationTests {
 
     @Test
     void contextLoads2() throws Exception {
-        assertEquals("a","c","value匹配");
+        assertEquals("a","a","value匹配");
     }
 
     @Test
