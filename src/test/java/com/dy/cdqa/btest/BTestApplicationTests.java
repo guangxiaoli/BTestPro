@@ -23,7 +23,7 @@ class BTestApplicationTests {
 
     @Test
     void contextLoads3() throws Exception {
-        assertTrue(5>3);
+        assertTrue(1>3);
     }
 
 
