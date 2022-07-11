@@ -26,6 +26,10 @@ class BTestApplicationTests {
         assertTrue(1>3);
     }
 
-
+    @Test
+    void contextLoads4() throws Exception {
+        assertTrue(1>3);
+        assertEquals(100,300);
+    }
 
 }
