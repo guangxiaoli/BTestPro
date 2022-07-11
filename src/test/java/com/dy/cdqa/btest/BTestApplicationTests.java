@@ -12,7 +12,7 @@ class BTestApplicationTests {
 
     @Test
     void contextLoads() {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbb");
+        System.out.println("测试输出一下");
     }
 
 
